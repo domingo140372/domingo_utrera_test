@@ -3,7 +3,7 @@ from typing import Optional
 from sqlmodel import Field, SQLModel, Relationship
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
-from app.users.models import User
+from app.users.models import Users
 
 class Messages(SQLModel, table=True):
     """Modelo para los mensajes con todos los metadatos."""
@@ -16,4 +16,4 @@ class Messages(SQLModel, table=True):
     message_length: int
     word_count: int
     
-    user: User = Relationship(back_populates="messages")
+    user: Users = Relationship(back_populates="messages")
