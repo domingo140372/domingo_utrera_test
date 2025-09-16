@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from uuid import UUID, uuid4
 from app.users.models import User
 
-class Message(SQLModel, table=True):
+class Messages(SQLModel, table=True):
     """Modelo para los mensajes con todos los metadatos."""
     message_id: Optional[str] = Field(default_factory=lambda: str(uuid4()), primary_key=True)
     session_id: str = Field(index=True)

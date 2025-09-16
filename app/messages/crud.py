@@ -2,7 +2,7 @@
 
 # app/messages/crud.py
 from sqlmodel import Session, select
-from .models import Message
+from .models import Messages
 from typing import List, Optional
 from uuid import UUID
 
