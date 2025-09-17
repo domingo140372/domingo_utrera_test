@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from app.users.routes import router as users_router
 from app.messages.routes import router as messages_router
-from app.inspections.routes import router as inspecions_router
+from app.inspections.routes import router as inspections_router
 from app.users.auth import router as auth_router
 
 def init_routes(app: FastAPI):

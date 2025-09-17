@@ -16,8 +16,8 @@ class Inspections(SQLModel, table=True):
     notas: Optional[str] = None
     gcp_folder_link: Optional[str] = None  # enlace a bucket GCP
 
-    # Relación con persona (una inspección puede tener varias personas implicadas)
-    personas: List["PersonaInspeccion"] = Relationship(back_populates="inspeccion")
+    # Relación con persona (una inspección puede tener varias contacts implicadas)
+    contacts: List["PersonalsInspections"] = Relationship(back_populates="inspections")
 
 
 class PersonalsInspections(SQLModel, table=True):
@@ -27,5 +27,5 @@ class PersonalsInspections(SQLModel, table=True):
     email: Optional[str] = None
     rol: str  # "entrega" o "recibe"
 
-    inspeccion_id: int = Field(foreign_key="inspeccion.id")
-    inspeccion: Optional[Inspeccion] = Relationship(back_populates="personas")
+    inspections_id: int = Field(foreign_key="inspections.id")
+    inspections: Optional[Inspections] = Relationship(back_populates="contacts")

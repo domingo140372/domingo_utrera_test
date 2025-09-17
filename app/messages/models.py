@@ -9,7 +9,7 @@ class Messages(SQLModel, table=True):
     """Modelo para los mensajes con todos los metadatos."""
     message_id: Optional[str] = Field(default_factory=lambda: str(uuid4()), primary_key=True)
     session_id: str = Field(index=True)
-    user_id: UUID = Field(foreign_key="user.id")
+    user_id: UUID = Field(foreign_key="users.id")
     content: str
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     sender: str  # 'user' o 'system'

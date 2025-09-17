@@ -6,8 +6,8 @@ from .models import Messages
 from typing import List, Optional
 from uuid import UUID
 
-def create_db_message(session: Session, user_id: UUID, session_id: str, content: str, sender: str, message_length: int, word_count: int) -> Message:
-    msg = Message(
+def create_db_message(session: Session, user_id: UUID, session_id: str, content: str, sender: str, message_length: int, word_count: int) -> Messages:
+    msg = Messages(
         session_id=session_id,
         content=content,
         sender=sender,
@@ -20,9 +20,9 @@ def create_db_message(session: Session, user_id: UUID, session_id: str, content:
     session.refresh(msg)
     return msg
 
-def get_messages_by_session_id(session: Session, session_id: str, limit: int = 100, offset: int = 0, sender: Optional[str] = None) -> List[Message]:
-    statement = select(Message).where(Message.session_id == session_id)
+def get_messages_by_session_id(session: Session, session_id: str, limit: int = 100, offset: int = 0, sender: Optional[str] = None) -> List[Messages]:
+    statement = select(Messages).where(Messages.session_id == session_id)
     if sender:
-        statement = statement.where(Message.sender == sender)
+        statement = statement.where(Messages.sender == sender)
     statement = statement.limit(limit).offset(offset)
     return session.exec(statement).all()
