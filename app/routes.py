@@ -2,6 +2,7 @@
 from fastapi import FastAPI
 from app.users.routes import router as users_router
 from app.messages.routes import router as messages_router
+from app.inspections.routes import router as inspections_router
 from app.users.auth import router as auth_router
 
 def init_routes(app: FastAPI):
@@ -9,3 +10,4 @@ def init_routes(app: FastAPI):
     app.include_router(auth_router, prefix="", tags=["Auth"])
     app.include_router(users_router, prefix="/users", tags=["Users"])
     app.include_router(messages_router, prefix="/messages", tags=["Messages"])
+    app.include_router(inspections_router, prefix="/inspections", tags=["Inspections"])

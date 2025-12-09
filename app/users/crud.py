@@ -2,7 +2,7 @@
 # app/users/crud.py
 from sqlmodel import Session, select
 from passlib.context import CryptContext
-from .models import User
+from .models import Users
 from .schemas import UserCreate, UserUpdate
 from typing import Optional
 from uuid import UUID
@@ -15,8 +15,8 @@ def hash_password(password: str) -> str:
 def verify_password(plain: str, hashed: str) -> bool:
     return pwd_context.verify(plain, hashed)
 
-def create_user_db(user_in: UserCreate, session: Session) -> User:
-    db_user = User(
+def create_user_db(user_in: UserCreate, session: Session) -> Users:
+    db_user = Users(
         username=user_in.username,
         email=user_in.email,
         password_hash=hash_password(user_in.password),
@@ -27,12 +27,12 @@ def create_user_db(user_in: UserCreate, session: Session) -> User:
     session.refresh(db_user)
     return db_user
 
-def get_user_by_username(username: str, session: Session) -> Optional[User]:
-    statement = select(User).where(User.username == username, User.is_active == True)
+def get_user_by_username(username: str, session: Session) -> Optional[Users]:
+    statement = select(Users).where(Users.username == username, Users.is_active == True)
     return session.exec(statement).first()
 
-def update_user_db(user_id: UUID, user_update: UserUpdate, session: Session) -> Optional[User]:
-    user = session.get(User, user_id)
+def update_user_db(user_id: UUID, user_update: UserUpdate, session: Session) -> Optional[Users]:
+    user = session.get(Users, user_id)
     if not user:
         return None
     for k, v in user_update.dict(exclude_unset=True).items():
@@ -43,7 +43,7 @@ def update_user_db(user_id: UUID, user_update: UserUpdate, session: Session) -> 
     return user
 
 def soft_delete_user_db(user_id: UUID, session: Session) -> bool:
-    user = session.get(User, user_id)
+    user = session.get(Users, user_id)
     if not user:
         return False
     user.is_active = False

@@ -7,7 +7,7 @@ from sqlmodel import Session
 from app.database import get_session
 from .schemas import UserCreate, UserUpdate, UserRead
 from .crud import create_user_db, update_user_db, soft_delete_user_db, get_user_by_username, verify_password
-from .models import User
+from .models import Users
 from app.users.auth import router as auth_router  # no usado aquí, auth se registra desde routes.init_routes
 
 router = APIRouter()
@@ -21,7 +21,7 @@ def create_user(user: UserCreate, session: Annotated[Session, Depends(get_sessio
     return new_user
 
 @router.put("/{user_id}", response_model=UserRead)
-def update_user(user_id: str, user_update: UserUpdate, session: Annotated[Session, Depends(get_session)], current_user: Annotated[User, Depends(lambda: None)] = None):
+def update_user(user_id: str, user_update: UserUpdate, session: Annotated[Session, Depends(get_session)], current_user: Annotated[Users, Depends(lambda: None)] = None):
     # current_user dependency can be connected to real get_current_user (see auth integration)
     updated = update_user_db(user_id, user_update, session)
     if not updated:
@@ -29,7 +29,7 @@ def update_user(user_id: str, user_update: UserUpdate, session: Annotated[Sessio
     return updated
 
 @router.delete("/{user_id}")
-def delete_user(user_id: str, session: Annotated[Session, Depends(get_session)], current_user: Annotated[User, Depends(lambda: None)] = None):
+def delete_user(user_id: str, session: Annotated[Session, Depends(get_session)], current_user: Annotated[Users, Depends(lambda: None)] = None):
     ok = soft_delete_user_db(user_id, session)
     if not ok:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Usuario no encontrado.")
