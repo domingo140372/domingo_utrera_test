@@ -139,10 +139,10 @@ RATE_LIMIT_WINDOW=60
 
 ## Esto iniciará:
 
-## Servicio														URL
+## 		Servicio											URL
 		FastAPI												http://localhost:8000
-		Redis													redis://localhost:6379
-		PgAdmin (si está configurado)	http://localhost:8080
+		Redis												redis://localhost:6379
+		PgAdmin (si está configurado)						http://localhost:8080
 
 ## 🔧 Seeder automático de usuario admin
 
