@@ -105,6 +105,9 @@ class TaskRepository:
         stmt = select(Tareas)
         if not include_deleted:
             stmt = stmt.where(Tareas.is_deleted == False)  # filtra borrados suaves por defecto
+        else:
+            stmt = stmt.where(Tareas.is_deleted == True)  # filtra borrados suaves por defecto
+
         return stmt
 
     def create(self, tarea_in: TareaCreate) -> Tareas:
@@ -199,6 +202,8 @@ class TaskRepository:
         tarea.updated_at = datetime.now(timezone.utc)
         self.session.add(tarea)
         self.session.commit()
+        self.session.refresh(tarea)
+        return tarea
 
     def restore(self, tarea_id: str, requester_user_id: Optional[UUID] = None) -> Tareas:
         """

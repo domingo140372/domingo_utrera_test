@@ -138,7 +138,7 @@ def update_tarea(
 
 @router.delete(
     "/{tarea_id}",
-    response_model=dict,
+    response_model=TareaResponse,
     summary="Eliminar (soft delete) una tarea",
 )
 def delete_tarea(
