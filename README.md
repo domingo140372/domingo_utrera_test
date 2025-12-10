@@ -103,6 +103,10 @@ requirements.txt # Dependencias
 local_env.txt # Variables de entorno (ejemplo)
 
 ---
+## Clonar el proyecto
+```
+git clone git@github.com:domingo140372/domingo_utrera_test.git
+```
 
 ## ⚙️ Configuración
 
