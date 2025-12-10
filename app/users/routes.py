@@ -8,7 +8,7 @@ from app.database import get_session
 from .schemas import UserCreate, UserUpdate, UserRead
 from .crud import create_user_db, update_user_db, soft_delete_user_db, get_user_by_username, verify_password
 from .models import Users
-from app.users.auth import router as auth_router  # no usado aquí, auth se registra desde routes.init_routes
+
 
 router = APIRouter()
 

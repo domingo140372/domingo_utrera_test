@@ -12,3 +12,8 @@ python-socketio
 psycopg2-binary
 sqlalchemy
 alembic
+pytest
+pytest-asyncio
+httpx
+coverage
+fakeredis

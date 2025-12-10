@@ -4,8 +4,7 @@ ENV=development
 LOG_LEVEL=info
 
 # Base de datos (ejemplo con SQLite local)
-DATABASE_URL = postgresql+psycopg2://postgres:postgres@localhost:5432/app_tareas
-
+DATABASE_URL = qlite:///./database.db
 # Redis (usar la URL del servicio Redis en docker-compose o externo)
 REDIS_URL=redis://redis:6379/0
 

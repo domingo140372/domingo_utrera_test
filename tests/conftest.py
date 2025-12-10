@@ -1,11 +1,11 @@
 import pytest
-from sqlmodel import create_engine, SQLModel, Session
+from app.database import create_engine, SQLModel, Session
 from fastapi.testclient import TestClient
 import fakeredis
 
 from app.main import app
 from app.database import get_session
-from app.middleware import RedisRateLimitMiddleware
+from app.middlewares.rate_limit import RedisRateLimitMiddleware
 
 # Usamos SQLite en memoria para los tests
 sqlite_url = "sqlite:///:memory:"
@@ -42,4 +42,3 @@ def client_fixture(session: Session):
     client = TestClient(app)
     yield client
     app.dependency_overrides.clear()
-s

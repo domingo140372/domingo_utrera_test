@@ -7,6 +7,14 @@ from .database import create_db_and_tables
 from .middlewares.rate_limit import RedisRateLimitMiddleware
 from .routes import init_routes
 
+from app.exceptions import (
+    not_found_exception_handler,
+    permission_denied_exception_handler,
+    generic_exception_handler,  # opcional
+)
+
+from app.tareas.crud import NotFoundError
+from app.tareas.crud import PermissionDeniedError
 
 # Crear app
 app = FastAPI(title="Api_TEST", version="2.0.0")
@@ -21,6 +29,11 @@ app.add_middleware(
 
 # Registrar rutas
 init_routes(app)
+
+# Registrar handlers globales
+app.add_exception_handler(NotFoundError, not_found_exception_handler)
+app.add_exception_handler(PermissionDeniedError, permission_denied_exception_handler)
+app.add_exception_handler(Exception, generic_exception_handler)
 
 
 @app.on_event("startup")
