@@ -209,8 +209,10 @@ FastAPI genera documentación interactiva:
 ```
 Swagger UI:
 http://localhost:8000/docs
+```
 <img width="1265" height="433" alt="image" src="https://github.com/user-attachments/assets/9da6eccf-5d5d-4a76-9e1a-52851ecab12f" />
 
+```
 ReDoc:
 http://localhost:8000/redoc
 ```
