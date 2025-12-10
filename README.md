@@ -144,8 +144,34 @@ RATE_LIMIT_WINDOW=60
 		Redis													redis://localhost:6379
 		PgAdmin (si está configurado)	http://localhost:8080
 
+## 🔧 Seeder automático de usuario admin
+
+El proyecto incluye un seeder que se ejecuta automáticamente cuando la aplicación inicia.
+Este seeder crea un usuario administrador si aún no existe en la base de datos.
+
+## 📌 ¿Para qué sirve?
+
+Garantizar que siempre exista un usuario con permisos administrativos.
+
+Evitar tener que crear manualmente el admin al iniciar un entorno nuevo.
+
+Útil para desarrollo, testing y despliegues iniciales.
+```
+	ADMIN_EMAIL=admin@example.com
+	ADMIN_PASSWORD=admin123
+	ADMIN_USERNAME=admin_tareas
+```
+
+## 🚀 Ejecución automática al iniciar FastAPI
+
+El seeder corre durante el evento startup de FastAPI.
+
 ## 🧪 Pruebas
 
+´´´
+***NOTA: Las pruebas unitarias actualmente no estan completas
+	  y estan dando error***
+´´´
 🧪 Ejecución de pruebas
 1. Crear y activar entorno virtual
 	```

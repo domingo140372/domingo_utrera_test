@@ -18,6 +18,8 @@ def create_db_and_tables() -> None:
     # estén registradas en SQLModel.metadata antes de crear las tablas.
     import app.users.models  # noqa: F401
     import app.messages.models  # noqa: F401
+    import app.tareas.models  # noqa: F401
+    import app.inspections.models  # noqa: F401
     # Si tienes más módulos: import app.otro.modulo.models
 
     SQLModel.metadata.create_all(engine)

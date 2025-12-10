@@ -2,9 +2,11 @@ from fastapi import FastAPI
 from redis.asyncio import Redis
 
 from .config import settings
-from .database import create_db_and_tables
+from .database import create_db_and_tables, engine
 from .middlewares.rate_limit import RedisRateLimitMiddleware
 from .routes import init_routes
+from .seed import seed_admin
+from sqlmodel import Session
 
 from app.exceptions import (
     not_found_exception_handler,
@@ -61,6 +63,11 @@ def create_app(*, redis_client=None) -> FastAPI:
                 db=settings.REDIS_DB,
                 decode_responses=True,
             )
+
+        print("🔄 Ejecutando seeders...")
+        with Session(engine) as session:
+            seed_admin(session)
+        print("APP READY")
 
     @app.on_event("shutdown")
     async def on_shutdown():

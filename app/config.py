@@ -26,4 +26,8 @@ class Settings:
     RATE_LIMIT = int(os.getenv("RATE_LIMIT", 100))
     RATE_LIMIT_WINDOW = int(os.getenv("RATE_LIMIT_WINDOW", 60))
 
+    ADMIN_EMAIL  = str(os.getenv("ADMIN_EMAIL","admin@example.com"))
+    ADMIN_PASSWORD = str(os.getenv("ADMIN_PASSWORD","admin123"))
+    ADMIN_USERNAME = str(os.getenv("ADMIN_USERNAME","admin_tareas"))
+
 settings = Settings()
