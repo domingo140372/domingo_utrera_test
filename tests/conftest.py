@@ -1,9 +1,9 @@
 import pytest
-from app.database import create_engine, SQLModel, Session
+from app.database import create_engine, SQLModel, Session, get_session
 from fastapi.testclient import TestClient
 import fakeredis
-
-from app.main import app
+from httpx import AsyncClient
+from app.main import create_app
 from app.database import get_session
 from app.middlewares.rate_limit import RedisRateLimitMiddleware
 
@@ -23,22 +23,30 @@ def session_fixture():
     SQLModel.metadata.drop_all(engine)
 
 @pytest.fixture(name="client")
-def client_fixture(session: Session):
-    """Fixture para cliente de pruebas con Redis simulado."""
-    # Sobrescribir la dependencia de la BD
+async def client_fixture(session: Session):
+    """Fixture para cliente de pruebas asíncrono con Redis simulado.
+
+    - Crea fake_redis y construye la app con create_app(redis_client=fake_redis)
+      para que el middleware se registre durante la creación.
+    - Sobrescribe la dependencia get_session para usar la sesión de pruebas.
+    - Usa AsyncClient en contexto para yield del cliente asíncrono.
+    """
+    # Sobrescribir la dependencia de la BD para que use la sesión de pruebas
     def get_session_override():
         return session
 
+    # Redis simulado con fakeredis (inyectado en la app al crearla)
+    fake_redis = fakeredis.FakeStrictRedis()
+
+    # Construir la app de prueba con el redis falso (middleware ya registrado en create_app)
+    app = create_app(redis_client=fake_redis)
+
+    # Inyectar override para la dependencia de sesión
     app.dependency_overrides[get_session] = get_session_override
 
-    # Redis simulado con fakeredis
-    fake_redis = fakeredis.FakeStrictRedis()
-    app.state.redis = fake_redis
+    # Crear cliente asíncrono de pruebas y exponerlo al test
+    async with AsyncClient(app=app, base_url="http://testserver") as ac:
+        yield ac
 
-    # Inyectar el middleware con Redis falso
-    app.user_middleware.clear()
-    app.add_middleware(RedisRateLimitMiddleware, redis_client=fake_redis)
-
-    client = TestClient(app)
-    yield client
+    # Limpieza al finalizar el fixture
     app.dependency_overrides.clear()
