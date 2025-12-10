@@ -1,5 +1,5 @@
 # personal_soft_test
-# 📌 Proyecto API de Mensajes
+# 📌 Proyecto API para test de FastApi con Postgres
 
 API construida con **FastAPI** para la gestión de usuarios y mensajes.  
 Incluye autenticación JWT, limitación de tasa con Redis, y pruebas automatizadas con `pytest`.
@@ -17,6 +17,9 @@ Incluye autenticación JWT, limitación de tasa con Redis, y pruebas automatizad
 - **Mensajes**:
   - Creación y consulta de mensajes en sesiones.
   - Filtros por remitente, límite y offset.
+- **Tareas**:
+  - Creación y consulta de mensajes en sesiones.
+  - Filtros por usuario.
 - **Seguridad**:
   - Middleware de **Rate Limiting con Redis**.
   - JWT con algoritmo configurable (`HS256` por defecto).
@@ -111,10 +114,20 @@ RATE_LIMIT_WINDOW=60
 
 	Redis en localhost:6379
 
+	PgAdmin en localhost:8080
+
+
 ## 🧪 Pruebas
 
 # Ejecutar pruebas unitarias con:
 ```
+ crear un entorno virtual en python:
+ 	python3 -m venv venv
+activar el entorno:
+ source venv/bin/activate
+instalar los modulo requeridos:
+	pip install requeriments.txt
+ejecutar pytest:
 	pytest -v
 ```
 - **Las pruebas incluyen:**
@@ -132,8 +145,7 @@ RATE_LIMIT_WINDOW=60
 	- Una vez levantado el servidor:
 
 		- Swagger UI
-
-		- ReDoc
+		- ReDoc 
 
 📌 - **Próximos pasos**
 
