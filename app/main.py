@@ -9,7 +9,7 @@ from .routes import init_routes
 
 
 # Crear app
-app = FastAPI(title="Api_MENSAJES", version="2.0.0")
+app = FastAPI(title="Api_TEST", version="2.0.0")
 
 # Registrar middleware (redis_client se obtiene luego desde app.state)
 app.add_middleware(

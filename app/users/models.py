@@ -16,6 +16,7 @@ class Users(SQLModel, table=True):
     create_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     messages: list["Messages"] = Relationship(back_populates="user")
+    tareas: list["Tareas"] = Relationship(back_populates="user")
 
 
 class Tokens(SQLModel):

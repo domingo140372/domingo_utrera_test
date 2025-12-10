@@ -81,8 +81,7 @@ Crea un archivo `.env` en la raíz:
 
 ```env
 # Base de datos
-DATABASE_URL=sqlite:///./database.db
-
+DATABASE_URL="postgresql+psycopg2://postgres:postgres@localhost:5432/app_tareas"
 # Redis
 REDIS_HOST=redis
 REDIS_PORT=6379

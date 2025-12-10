@@ -6,7 +6,7 @@ from app.database import get_session
 from .schemas import InspeccionCreate, InspeccionRead
 from .crud import create_inspeccion, get_inspeccion, get_all_inspeccions
 
-router = APIRouter(prefix="/inspeccions", tags=["Inspeccions"])
+router = APIRouter()
 
 
 @router.post("/", response_model=InspeccionRead)

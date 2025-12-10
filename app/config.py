@@ -9,7 +9,7 @@ class Settings:
     # Database
     DATABASE_URL = os.getenv(
         "DATABASE_URL",
-        "postgresql+psycopg2://postgres:postgres@localhost:5432/app_cars_inspector"
+        "postgresql+psycopg2://postgres:postgres@localhost:5432/app_tareas"
     )
     # Redis
     REDIS_HOST = os.getenv("REDIS_HOST", "redis")

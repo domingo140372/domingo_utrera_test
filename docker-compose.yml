@@ -14,7 +14,7 @@ services:
       - redis
       - db
     environment:
-      DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/app_cars_inspector
+      DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/app_tareas
 
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
@@ -31,7 +31,7 @@ services:
       environment:
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: postgres
-        POSTGRES_DB: app_cars_inspector
+        POSTGRES_DB: app_tareas
       ports:
         - "9000:5432"   # expone PostgreSQL en el puerto 9000
       volumes:
