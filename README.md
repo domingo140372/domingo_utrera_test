@@ -149,6 +149,19 @@ RATE_LIMIT_WINDOW=60
 | Redis | redis://localhost:6379 |
 | PgAdmin |	http://localhost:8080 |
 
+## Conexion a pgAdmin
+	user: admin@admin.com
+	password: admin
+
+## Conexion a la BD
+| Campo   |  Valor   |
+|-----------|-------------|	 
+| Host name / Address |	db |
+|Port |	5432 |
+|Maintenance Database |	app_tareas |
+|Username |	postgres |
+|Password  | postgres |
+
 ## 🔧 Seeder automático de usuario admin
 
 El proyecto incluye un seeder que se ejecuta automáticamente cuando la aplicación inicia.
