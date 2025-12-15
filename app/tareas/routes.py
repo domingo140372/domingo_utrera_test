@@ -137,8 +137,8 @@ def update_tarea(
 
 
 @router.delete(
-    "/{tarea_id}",
-    response_model=TareaResponse,
+    "/{tarea_id}/delete",
+    response_model=TareaRead,
     summary="Eliminar (soft delete) una tarea",
 )
 def delete_tarea(
@@ -152,7 +152,7 @@ def delete_tarea(
     """
     repo = TaskRepository(session)
     try:
-        repo.soft_delete(tarea_id, requester_user_id=current_user.id)
+        tarea = repo.soft_delete(tarea_id, requester_user_id=current_user.id)
     except NotFoundError as exc:
         raise _map_notfound(exc)
     except PermissionDeniedError as exc:
@@ -160,7 +160,7 @@ def delete_tarea(
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc))
 
-    return {"message": "Tarea eliminada (soft-delete)"}
+    return tarea
 
 
 @router.post(

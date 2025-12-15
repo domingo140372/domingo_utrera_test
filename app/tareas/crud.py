@@ -192,6 +192,7 @@ class TaskRepository:
         - No elimina físicamente la fila.
         """
         tarea = self.get(tarea_id, include_deleted=False)
+        print(tarea)
         if not tarea:
             raise NotFoundError(resource="Tarea", identifier=tarea_id)
 
@@ -217,7 +218,7 @@ class TaskRepository:
             return tarea  # ya estaba activa
 
         if requester_user_id is not None and tarea.user_id != requester_user_id:
-            raise PermissionDeniedError(resource="Tarea", identifier=tarea_id, action="eliminar")
+            raise PermissionDeniedError(resource="Tarea", identifier=tarea_id, action="restore")
 
         tarea.is_deleted = False
         tarea.updated_at = datetime.now(timezone.utc)
